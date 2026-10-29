@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>推薦動画 撮影1回目</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1b1d21; --muted:#5b6070; --line:#c9ccd4; --soft:#f3f4f7;
+  --ask:#e9f1ff; --askline:#2f62c9; --scr:#eaf6ee; --scrline:#2c8a4b; --warn:#fff4e5; --warnline:#c27600;
+  --wb:#f6efff; --wbline:#7a46c2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171b; --fg:#e8e9ec; --muted:#a3a8b5; --line:#3a3e48; --soft:#1f2228;
+    --ask:#18253d; --askline:#7aa2ff; --scr:#15281c; --scrline:#5cc283; --warn:#2d2414; --warnline:#e0a24a;
+    --wb:#251a33; --wbline:#b48cf0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171b; --fg:#e8e9ec; --muted:#a3a8b5; --line:#3a3e48; --soft:#1f2228;
+  --ask:#18253d; --askline:#7aa2ff; --scr:#15281c; --scrline:#5cc283; --warn:#2d2414; --warnline:#e0a24a;
+  --wb:#251a33; --wbline:#b48cf0;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Meiryo",sans-serif;
+  font-size:15px;line-height:1.65}
+.page{max-width:820px;margin:0 auto;padding:20px 16px 28px}
+.page + .page{border-top:3px dashed var(--line)}
+h1{font-size:1.4rem;margin:2px 0 2px;line-height:1.35}
+h2{font-size:1.02rem;margin:14px 0 6px;padding-left:8px;border-left:4px solid var(--askline)}
+p{margin:4px 0}
+ul,ol{margin:3px 0;padding-left:1.3em}
+li{margin:2px 0}
+.head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px}
+.sub{color:var(--muted);font-size:.88rem;margin-bottom:6px}
+.scene{border:1px solid var(--line);border-radius:6px;margin:9px 0;overflow:hidden}
+.sh{background:var(--soft);font-weight:700;padding:4px 10px;display:flex;justify-content:space-between;gap:8px}
+.sh span{font-weight:400;color:var(--muted);font-size:.88rem}
+.wbsh{background:var(--wb);border-bottom:2px solid var(--wbline)}
+.wbbox{border:2px solid var(--wbline);background:var(--wb);border-radius:6px;padding:5px 10px;margin:8px 0}
+.wbbox b.t{display:block}
+.zoom{margin:10px 0 2px;padding:4px 10px;border-radius:6px;background:var(--scr);border:2px solid var(--scrline);font-weight:700}
+.zoom span{display:block;font-weight:400;font-size:.84rem;color:var(--muted)}
+.ask{background:var(--ask);border-left:5px solid var(--askline);padding:6px 10px;font-size:1.06rem;font-weight:600}
+.ask small{display:block;font-weight:400;font-size:.8rem;color:var(--muted)}
+.facts{padding:5px 10px 4px}
+.facts > b{font-size:.82rem;color:var(--muted)}
+.facts li{font-size:.94rem}
+.q{background:var(--soft);padding:3px 7px;border-radius:4px;display:block;margin:2px 0}
+.red{text-decoration:underline;text-decoration-color:#d62b2b;text-decoration-thickness:3px;text-underline-offset:3px}
+.src{display:block;font-size:.78rem;color:var(--muted)}
+.scr{border-top:1px dashed var(--scrline);background:var(--scr);padding:4px 10px;font-size:.88rem}
+.note{font-size:.86rem;color:var(--muted);margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:4px 7px;vertical-align:top;text-align:left}
+th{background:var(--soft);font-weight:600}
+.scroll{overflow-x:auto}
+.legend span{display:inline-block;padding:1px 7px;border-radius:4px;margin-right:6px;font-size:.86rem}
+.l-ask{background:var(--ask);border-left:4px solid var(--askline)}
+.l-fact{background:var(--soft)}
+.l-scr{background:var(--scr)}
+.l-wb{background:var(--wb);border-left:4px solid var(--wbline)}
+.box{border:1px solid var(--warnline);background:var(--warn);border-radius:6px;padding:6px 10px;font-size:.92rem}
+.n{font-weight:700;color:var(--askline);margin-right:2px}
+.srct{font-size:.74rem}
+.srct td.u{word-break:break-all;font-size:.68rem}
+.srct td.c{text-align:center;font-weight:700}
+.srcpage{page-break-before:always;break-before:page}
+.cards{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.card{flex:1 1 90px;border:2px solid var(--askline);border-radius:6px;padding:2px 6px;text-align:center;line-height:1.15;background:var(--ask)}
+.card i{display:block;font-style:normal;font-size:.72rem;color:var(--muted)}
+.card b{display:block;font-size:24pt;line-height:1.1}
+.card u{text-decoration:none;font-size:.78rem;color:var(--askline);font-weight:700}
+@page{size:A4 portrait;margin:9mm 11mm}
+@media print{
+  :root,:root[data-theme="dark"]{--bg:#fff;--fg:#000;--muted:#444;--line:#999;--soft:#f1f1f1;--ask:#eef3ff;--askline:#2f62c9;--scr:#eef8f1;--scrline:#2c8a4b;--warn:#fff6e8;--warnline:#c27600;--wb:#f6efff;--wbline:#7a46c2}
+  body{font-size:9.4pt;line-height:1.45}
+  .page{max-width:none;padding:0;page-break-after:always;break-after:page}
+  .page + .page{border-top:none}
+  .page:last-child{page-break-after:auto;break-after:auto}
+  h1{font-size:14pt}
+  h2{font-size:10.5pt;margin:7px 0 3px}
+  .scene{margin:5px 0;break-inside:avoid}
+  .ask{font-size:10.6pt;padding:4px 9px}
+  .facts li{font-size:9.2pt}
+  .src{font-size:7.6pt}
+  .scr{font-size:8.6pt;padding:3px 9px}
+  table{font-size:8.8pt}
+  th,td{padding:2px 5px}
+  .card b{font-size:18pt}
+  .srct{font-size:6.8pt}
+  .srct td.u{font-size:6pt}
+  .srct th,.srct td{padding:1.5px 3px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 表紙 ===== -->
+<section class="page">
+  <div class="head"><span>都立推薦の動画　撮影1回目</span><span>10月29日（木）　先生と稲田さんで同じものを1部ずつ</span></div>
+  <h1>今日の6本と撮る順</h1>
+  <p class="sub">10月23日の打ち合わせで決めた形です：面接を先に4本（集団討論は外す）、学校別は江戸川。10月27日に江北を1校足しました（11月5日の予定から前倒し）。</p>
+  <div class="scroll"><table>
+    <tr><th>順</th><th>動画</th><th>目安</th><th>終わった時刻</th></tr>
+    <tr><td>1</td><td>面接①　陽キャの子が気をつけること</td><td>15分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>2</td><td>面接②　陰キャの子が気をつけること</td><td>15分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>3</td><td>面接③　自分には何もないと思っている子へ</td><td>15分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>4</td><td>面接④　自己PR・プレゼンの作り方</td><td>15分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>5</td><td>江戸川高校</td><td>18分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>6</td><td>江北高校</td><td>18分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>7</td><td>共通の締め（LINE）。ホワイトボードの前で1回だけ</td><td>5分</td><td>＿＿：＿＿</td></tr>
+    <tr><td>8</td><td>予備（撮り直し・確認）</td><td>10分</td><td>＿＿：＿＿</td></tr>
+  </table></div>
+  <p class="note"><b>合計約120分</b>（江北を足して約18分増えました）。1本ずつ「はじめ→真ん中→おわり」の順に続けて撮ります。話の流れが切れないようにするためです。</p>
+
+  <h2>1本の撮り方</h2>
+  <div class="scroll"><table>
+    <tr><th>部分</th><th>どこで・何で撮るか</th><th>中身</th></tr>
+    <tr><td>はじめ（30秒〜1分）</td><td>ホワイトボードの前に立って。<b>カメラ</b>で撮る</td><td>この1本で何を話すか。ホワイトボードには題だけ（稲田さんが前もって書き、1本ごとに書きかえる）。板書はしない</td></tr>
+    <tr><td>真ん中（8〜12分）</td><td>パソコンの前に座って。<b>Zoomの録画</b>で撮る（カメラは回さない・照明も動かさない）</td><td>稲田さんが用意した画面（問題文・配点）を共有し、先生が話しながら、文に赤線を引く</td></tr>
+    <tr><td>おわり（30秒〜1分）</td><td>ホワイトボードの前に戻って。<b>カメラ</b>で撮る</td><td>「ここから先は一人では難しい。あおぞらではこうしている」</td></tr>
+  </table></div>
+  <p class="note">真ん中の音：Zoomの録画の音だけだと弱いことがあります。先生のDJIマイクは付けたままにして、本体録音（Mic 2など）があればオンにしておくと、あとで差し替えられます。</p>
+
+  <h2>この台本の見方</h2>
+  <p class="legend"><span class="l-wb">紫</span>ホワイトボードの前で、カメラで撮るところ</p>
+  <p class="legend"><span class="l-scr">緑の太枠</span>パソコンの前で、Zoomで撮るところ</p>
+  <p class="legend"><span class="l-ask">青</span>稲田さんが聞くこと。場面ごとに1つだけ</p>
+  <p class="legend"><span class="l-fact">灰色</span>事実。数字や問題文を言うときは、ここを読む。下の小さい字が出どころ</p>
+  <p class="legend"><span class="l-scr">緑</span>画面に出すもの。<span class="red">赤い下線</span>は、先生がZoomで赤線を引く所の候補（先生が話した所に引けばよく、全部でなくてよい）</p>
+  <p>先生の台詞は書いていません。話す中身は先生にお任せします。言い直しは止めずにそのまま続けてください。</p>
+
+  <h2>全部の回で言わないこと</h2>
+  <ul>
+    <li>何点取れば受かるか、合格ライン（資料に出ていない数字のため）</li>
+    <li>料金、教室の場所（説明欄に書きます）</li>
+  </ul>
+</section>
+
+<!-- ===== 面接① 陽キャ ===== -->
+<section class="page">
+  <div class="head"><span>1本目　面接①</span><span>目安15分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>陽キャの子が気をつけること</h1>
+  <div class="sub">題（仮）：都立推薦の面接　陽キャの子が気をつけること</div>
+  <div class="wbbox"><b class="t">はじめ　ホワイトボードの前・カメラ（30秒〜1分）</b>ホワイトボードに書く題：「都立推薦の面接　陽キャの子が気をつけること」<div class="ask">「話すのが得意な子に、最初にひとこと言うとしたら？」</div></div>
+  <div class="zoom">真ん中　パソコンの前・Zoomの録画<span>画面を共有して、先生が話しながら赤線を引く。場面1〜3を続けて</span></div>
+
+  <div class="scene">
+    <div class="sh">場面1　得意な子のつまずき<span>約5分</span></div>
+    <div class="ask">「話すのが得意な子ほど、面接でつまずくのはどんなところですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面2　自己PRカードとずれない<span>約4分</span></div>
+    <div class="ask">「その場で盛り上げて話せる子が、自己PRカードに書いたこととずれないようにするには、どうしますか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">①</b>推薦の選考は「調査書、個人面接（集団討論を実施する学校は集団討論を含む。）、小論文又は作文等の検査を総合した成績…入学願書による志望及び都立高校長が必要とする資料（<span class="red">自己ＰＲカードを含む。</span>）により行う。」
+        <span class="src">令和9年度 都立高校入学者選抜実施要綱 第1-7-1(1)（6ページ）</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：上の文。「自己ＰＲカードを含む」に先生が赤線</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面3　家での練習<span>約3分</span></div>
+    <div class="ask">「家で練習するとき、お父さんお母さんは、どこを止めてあげればいいですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="wbbox"><b class="t">おわり　ホワイトボードの前に戻って・カメラ（30秒〜1分）</b><div class="ask">「この動画で話したことのうち、ここから先は一人では難しい、というのはどこですか。あおぞらでは、そこをどうしていますか」<small>6本とも同じ問い。答えは先生の言葉で（10/23の打ち合わせで決めた「毎回入れること」）</small></div></div>
+</section>
+
+<!-- ===== 面接② 陰キャ ===== -->
+<section class="page">
+  <div class="head"><span>2本目　面接②</span><span>目安15分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>陰キャの子が気をつけること</h1>
+  <div class="sub">題（仮）：都立推薦の面接　陰キャの子が気をつけること</div>
+  <div class="wbbox"><b class="t">はじめ　ホワイトボードの前・カメラ（30秒〜1分）</b>ホワイトボードに書く題：「都立推薦の面接　陰キャの子が気をつけること」<div class="ask">「話すのが苦手な子に、最初にひとこと言うとしたら？」</div></div>
+  <div class="zoom">真ん中　パソコンの前・Zoomの録画<span>画面を共有して、先生が話しながら赤線を引く。場面1〜3を続けて</span></div>
+
+  <div class="scene">
+    <div class="sh">場面1　苦手な子の準備<span>約5分</span></div>
+    <div class="ask">「話すのが苦手な子は、面接までに何をしておけばいいですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面2　面接の点の重さ<span>約4分</span></div>
+    <div class="ask">「江戸川では、面接が作文と同じ200点です。苦手な子に、この数字をどう伝えますか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">②</b>江戸川の推薦（令和9年度）：調査書400・個人面接200・作文200
+        <span class="src">令和9年度 実施方法一覧（普通科）109ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：江戸川の配点の表。「個人面接200」に先生が赤線</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面3　当日、言葉が出なくなったら<span>約3分</span></div>
+    <div class="ask">「本番で頭が真っ白になったら、その場でどうすればいいですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="wbbox"><b class="t">おわり　ホワイトボードの前に戻って・カメラ（30秒〜1分）</b><div class="ask">「この動画で話したことのうち、ここから先は一人では難しい、というのはどこですか。あおぞらでは、そこをどうしていますか」<small>6本とも同じ問い。答えは先生の言葉で（10/23の打ち合わせで決めた「毎回入れること」）</small></div></div>
+</section>
+
+<!-- ===== 面接③ 何もない ===== -->
+<section class="page">
+  <div class="head"><span>3本目　面接③</span><span>目安15分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>自分には何もないと思っている子へ</h1>
+  <div class="sub">題（仮）：都立推薦の面接　自分には何もないと思っている子へ</div>
+  <div class="wbbox"><b class="t">はじめ　ホワイトボードの前・カメラ（30秒〜1分）</b>ホワイトボードに書く題：「都立推薦の面接　自分には何もないと思っている子へ」<div class="ask">「『自分には何もない』と思っている子に、最初にひとこと言うとしたら？」</div></div>
+  <div class="zoom">真ん中　パソコンの前・Zoomの録画<span>画面を共有して、先生が話しながら赤線を引く。場面1〜3を続けて</span></div>
+
+  <div class="scene">
+    <div class="sh">場面1　何もない、と言う子<span>約5分</span></div>
+    <div class="ask">「部活も役職もない、と思っている子は、何を話せばいいですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面2　学校が書いていること<span>約4分</span></div>
+    <div class="ask">「江戸川は『部活動等において優れた取り組み等があることが望ましい』と書いています。役職についていない子は、これをどう読めばいいですか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">③</b><span class="q">「※ 特に推薦選抜においては、<span class="red">生徒会活動や委員会活動、部活動等において優れた取り組み等</span>があることが望ましい。」</span>
+        <span class="src">令和9年度 本校の期待する生徒の姿（全日制）江戸川 8ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：上の※の行。先生が触れた語に先生が赤線</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面3　話すことの見つけ方<span>約3分</span></div>
+    <div class="ask">「話すことを親子で見つけるとき、最初に何を聞いてあげればいいですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="wbbox"><b class="t">おわり　ホワイトボードの前に戻って・カメラ（30秒〜1分）</b><div class="ask">「この動画で話したことのうち、ここから先は一人では難しい、というのはどこですか。あおぞらでは、そこをどうしていますか」<small>6本とも同じ問い。答えは先生の言葉で（10/23の打ち合わせで決めた「毎回入れること」）</small></div></div>
+</section>
+
+<!-- ===== 面接④ 自己PR・プレゼン ===== -->
+<section class="page">
+  <div class="head"><span>4本目　面接④</span><span>目安15分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>自己PR・プレゼンの作り方</h1>
+  <div class="sub">題（仮）：都立推薦の面接　自己PR・プレゼンの作り方</div>
+  <div class="wbbox"><b class="t">はじめ　ホワイトボードの前・カメラ（30秒〜1分）</b>ホワイトボードに書く題：「都立推薦の面接　自己PR・プレゼンの作り方」<div class="ask">「自己PRとプレゼンを、ひとことで言うと？」</div></div>
+  <div class="zoom">真ん中　パソコンの前・Zoomの録画<span>画面を共有して、先生が話しながら赤線を引く。場面1〜3を続けて</span></div>
+  <div class="cards"><div class="card"><i>足立新田の自己PR</i><b>2分</b><u>④</u></div><div class="card"><i>足立新田の面接</i><b>400点</b><u>⑤</u></div><div class="card"><i>晴海総合のプレゼン</i><b>3分</b><u>⑥</u></div><div class="card"><i>晴海総合の面接</i><b>480点</b><u>⑦</u></div></div>
+
+  <div class="scene">
+    <div class="sh">場面1　原稿の作りはじめ<span>約4分</span></div>
+    <div class="ask">「自己PRやプレゼンの原稿は、どこから作りはじめればいいですか」</div>
+    <div class="facts"><b>事実</b>　なし。先生の経験から</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面2　足立新田の2分<span>約4分</span></div>
+    <div class="ask">「足立新田は、自己PRカードに書いたことから1つ選んで、カードを見ずに2分以内で話します。何を選んで、どう組み立てますか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">④</b><span class="q">「…「自己ＰＲカード」に記載した内容のうちで、<span class="red">特に強調したい一項目</span>についてその内容をＰＲする時間を設けます。「自己ＰＲタイム」の時間は<span class="red">２分以内</span>にしてください。」「「自己ＰＲカード」等を<span class="red">見ながら答えることはできません</span>…」</span>
+        <span class="src">令和9年度 実施要綱 別表6 足立新田（218ページ）</span></li>
+      <li><b class="n">⑤</b>足立新田の配点：調査書600・個人面接400・作文200
+        <span class="src">実施方法一覧（普通科）109ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：足立新田の原文と配点。赤線は上の3か所</div>
+  </div>
+  <div class="scene">
+    <div class="sh">場面3　晴海総合の3分<span>約4分</span></div>
+    <div class="ask">「晴海総合の3分のプレゼンは、物を持ち込めますが、作品の出来は評価しないと書いてあります。では3分で何を見せればいいですか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">⑥</b><span class="q">「１人３分間です。」「ＰＣ等を含む通信機器・電子機器は一切使用できません。」「…持ち込みを認めます。ただし、持ち込んだ作品自体や楽器などを利用した場合の<span class="red">作品の完成度や演奏自体を評価するものではありません</span>。」</span>
+        <span class="src">別表6 晴海総合（220ページ）</span></li>
+      <li><b class="n">⑦</b>晴海総合の配点：調査書720・個人面接480・作文240
+        <span class="src">実施方法一覧（総合学科）124ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：晴海総合の原文と配点</div>
+  </div>
+  <div class="wbbox"><b class="t">おわり　ホワイトボードの前に戻って・カメラ（30秒〜1分）</b><div class="ask">「この動画で話したことのうち、ここから先は一人では難しい、というのはどこですか。あおぞらでは、そこをどうしていますか」<small>6本とも同じ問い。答えは先生の言葉で（10/23の打ち合わせで決めた「毎回入れること」）</small></div></div>
+</section>
+
+<!-- ===== 江戸川 ===== -->
+<section class="page">
+  <div class="head"><span>5本目　学校別</span><span>目安18分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>江戸川高校</h1>
+  <div class="sub">題（仮）：江戸川高校 推薦入試　作文と面接</div>
+  <div class="wbbox"><b class="t">はじめ　ホワイトボードの前・カメラ（30秒〜1分）</b>ホワイトボードに書く題：「江戸川高校 推薦入試　作文と面接」<div class="ask">「江戸川の推薦を、ひとことで言うと？」</div></div>
+  <div class="zoom">真ん中　パソコンの前・Zoomの録画<span>画面を共有して、先生が話しながら赤線を引く。場面1〜3を続けて</span></div>
+  <div class="cards"><div class="card"><i>推薦の倍率</i><b>3.61倍</b><u>⑧</u></div><div class="card"><i>応募／募集</i><b>231／64人</b><u>⑧</u></div><div class="card"><i>面接／作文</i><b>200／200点</b><u>②</u></div><div class="card"><i>作文の時間</i><b>50分</b><u>⑨</u></div><div class="card"><i>作文の字数</i><b>501〜600字</b><u>⑨</u></div></div>
+
+  <div class="scene">
+    <div class="sh">場面1　江戸川の推薦の中身<span>約4分</span></div>
+    <div class="ask">「江戸川の推薦は、作文と個人面接が200点ずつです。江戸川を受ける子に、まず何を伝えますか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">⑧</b>令和8年度の推薦：募集64人に応募231人、3.61倍（特別推薦を含む）
+        <span class="src">令和8年度 都立高校 推薦応募状況（普通科）2026年1月20日発表</span></li>
+      <li><b class="n">②</b>令和9年度の推薦：推薦枠20%、調査書400・個人面接200・作文200
+        <span class="src">令和9年度 実施方法一覧（普通科）109ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：応募と配点の表</div>
+  </div>
+
+  <div class="scene">
+    <div class="sh">場面2　作文で見られるところ<span>約8分</span></div>
+    <div class="ask">「生成AIのテーマで、自分の経験はどこに、どう入れればいいですか」</div>
+    <div class="facts"><b>事実</b>（令和8年度の作文。50分・501〜600字。原文）<ul>
+      <li><b class="n">⑨</b><span class="q">「私たちの身の回りで、生成ＡＩ（文章や絵、音楽などを作り出す人工知能）が広がり始めています。生成ＡＩは便利ですが、頼りすぎると、自分で試したり失敗から学ぶ機会が減り、考える力や新しいことを生み出す力が弱まるのではないかと心配されています。<span class="red">このことについて、あなたはどのように考えますか。</span>また、その考えを踏まえ、<span class="red">高校入学後どのように生活していきたいと考えますか。</span><span class="red">自らの経験を挙げながら</span>述べなさい。」</span>
+        <span class="src">令和8年度 小論文・作文のテーマ等一覧（別添1）江戸川 11ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：問題文（全文）と、時間・字数。赤線は先生が触れた順に引く（候補は上の3か所）</div>
+  </div>
+
+  <div class="scene">
+    <div class="sh">場面3　面接の注意点<span>約3分</span></div>
+    <div class="ask">「江戸川は進学指導推進校で、部活動や行事にも力を入れている学校です。面接ではここをどう準備しますか」</div>
+    <div class="facts"><b>事実</b>（江戸川の「本校の期待する生徒の姿」から）<ul>
+      <li><b class="n">⑩</b><span class="q">「本校では、「進学指導推進校」の指定を受け、進学指導に重点を置き、部活動及び学校行事についても充実した教育活動を展開しています。」<br>「１ 本校の特色をよく理解し、勉学、生徒会活動、部活動に積極的に取り組む生徒」</span>
+        <span class="src">令和9年度 本校の期待する生徒の姿（全日制）8ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：上の2行。終わりに「役職がなくて心配な子は、面接③『自分には何もないと思っている子へ』の動画へ」</div>
+  </div>
+  <div class="wbbox"><b class="t">おわり　ホワイトボードの前に戻って・カメラ（30秒〜1分）</b><div class="ask">「この動画で話したことのうち、ここから先は一人では難しい、というのはどこですか。あおぞらでは、そこをどうしていますか」<small>6本とも同じ問い。答えは先生の言葉で（10/23の打ち合わせで決めた「毎回入れること」）</small></div></div>
+</section>
+
+<!-- ===== 江北 ===== -->
+<section class="page">
+  <div class="head"><span>6本目　学校別</span><span>目安18分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>江北高校</h1>
+  <div class="sub">題（仮）：江北高校 推薦入試　小論文と面接</div>
+  <div class="wbbox"><b class="t">はじめ　ホワイトボードの前・カメラ（30秒〜1分）</b>ホワイトボードに書く題：「江北高校 推薦入試　小論文と面接」<div class="ask">「江北の推薦を、ひとことで言うと？」</div></div>
+  <div class="zoom">真ん中　パソコンの前・Zoomの録画<span>画面を共有して、先生が話しながら赤線を引く。場面1〜3を続けて</span></div>
+  <div class="cards"><div class="card"><i>推薦の倍率</i><b>2.92倍</b><u>⑪</u></div><div class="card"><i>応募／募集</i><b>187／64人</b><u>⑪</u></div><div class="card"><i>小論文／面接</i><b>300／150点</b><u>⑫</u></div><div class="card"><i>小論文の時間</i><b>50分</b><u>⑬</u></div><div class="card"><i>小論文の字数</i><b>150〜200字<br>＋300〜400字</b><u>⑬</u></div></div>
+
+  <div class="scene">
+    <div class="sh">場面1　江北の推薦の中身<span>約4分</span></div>
+    <div class="ask">「江北は小論文が300点で、個人面接150点の倍です。江北を受ける子に、まず何を伝えますか」</div>
+    <div class="facts"><b>事実</b><ul>
+      <li><b class="n">⑪</b>令和8年度の推薦：募集64人に応募187人、2.92倍
+        <span class="src">令和8年度 都立高校 推薦応募状況（普通科）2026年1月20日発表</span></li>
+      <li><b class="n">⑫</b>令和9年度の推薦：推薦枠20%、<span class="red">調査書450・個人面接150・小論文300</span>（文化・スポーツ等特別推薦はなし）
+        <span class="src">令和9年度 実施方法一覧（普通科）109ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：応募と配点の表。「小論文300」と「個人面接150」に先生が赤線（江戸川は面接と作文が200ずつ、とくらべてもよい）</div>
+  </div>
+
+  <div class="scene">
+    <div class="sh">場面2　小論文で見られるところ<span>約8分</span></div>
+    <div class="ask">「グラフや表を読んで書く小論文です。資料の数字を、どう自分の意見に使えばいいですか」</div>
+    <div class="facts"><b>事実</b>（令和8年度の小論文。50分。大問2つ。原文）<ul>
+      <li><b class="n">⑬</b>大問1：可処分所得（給与から税金・社会保険料を引いた残り）の資料Ⅰ〜Ⅲ。問1は割合を％で答える計算。問2は<span class="q">「1999年から2019年の可処分所得が資料Ⅰのように推移した理由について，1999年から2009年と2009年から2019年の<span class="red">２つの期間に着目して</span>，資料Ⅱ，資料Ⅲから<span class="red">読み取れること</span>を150字以上200字以内で述べなさい。文字・記号・算用数字は，すべて１字につき１マス使用し，解答欄の１マス目から書き始め，段落分けはしないこと。」</span></li>
+      <li><b class="n">⑬</b>大問2：社会保障の資料Ⅳ〜Ⅶ。意見「税金と社会保険料の負担を小さくして，可処分所得を増やすべきだ。」について<span class="q">「その意見に対して<span class="red">賛成か反対かあなたの立場を明確にし</span>,資料Ⅳ～資料Ⅶの中から<span class="red">３つ以上の資料を活用して</span>，「2040年の日本の社会で考えられる課題と今後の日本の社会保障の在り方」について，あなたの考えを300字以上400字以内で述べなさい。文字・記号・算用数字は，すべて１字につき１マス使用し，必要に応じて改行して段落分けしてもかまわない。書き始めや改行の際には１マスを空欄とすること。」</span>
+        <span class="src">江北高校 令和8年度 推薦に基づく選抜 小論文（学校のホームページ）／令和8年度 小論文・作文のテーマ等一覧（別添1）江北 10ページ</span></li>
+    </ul></div>
+    <div class="scr">画面に出す：問題用紙の問2と大問2の文、資料Ⅰのグラフ1枚。赤線は先生が触れた順に引く（候補は上の4か所）</div>
+  </div>
+
+  <div class="scene">
+    <div class="sh">場面3　面接の注意点<span>約3分</span></div>
+    <div class="ask">「江北は推薦で『１から４までの全てに該当する』『難関大学への現役合格を目指して』と書いています。面接ではここをどう準備しますか」</div>
+    <div class="facts"><b>事実</b>（江北の「本校の期待する生徒の姿」から）<ul>
+      <li><b class="n">⑭</b><span class="q">「本校は、「地域を代表する進学校、文武両道を実践する学校、地域社会に貢献する学校」を目指し「進学指導推進校」…の指定を受けて進学指導に重点を置いた充実した教育活動を推進しています。」<br>「※ 特に推薦選抜においては、<span class="red">１から４までの全てに該当する</span>優れた能力と適性のある生徒で、<span class="red">難関大学への現役合格を目指して努力を惜しまない生徒</span>が望ましい。」</span>
+        <span class="src">令和9年度 本校の期待する生徒の姿（全日制）江北 7ページ</span></li>
+      <li>１〜４の中身：１ 大学進学などの進路目標が明確で学習に励む／２ 部活動・学校行事・生徒会活動・ボランティア活動などで文武両道を実践／３ ルールやマナーを守り責任ある行動がとれる／４ 学校生活でリーダーシップを発揮する（同じページの要約）</li>
+    </ul></div>
+    <div class="scr">画面に出す：上の2つの文と１〜４。終わりに「役職がなくて心配な子は、面接③『自分には何もないと思っている子へ』の動画へ」</div>
+  </div>
+  <div class="wbbox"><b class="t">おわり　ホワイトボードの前に戻って・カメラ（30秒〜1分）</b><div class="ask">「この動画で話したことのうち、ここから先は一人では難しい、というのはどこですか。あおぞらでは、そこをどうしていますか」<small>6本とも同じ問い。答えは先生の言葉で（10/23の打ち合わせで決めた「毎回入れること」）</small></div></div>
+</section>
+
+<!-- ===== 締め ===== -->
+<section class="page">
+  <div class="head"><span>7　共通の締め（6本撮り終えてから）</span><span>目安5分　終わった時刻 ＿＿：＿＿</span></div>
+  <h1>締め（LINE）</h1>
+  <div class="sub">ホワイトボードの前・カメラ。1回撮って6本全部の「おわり」のあとに付けます。学校名は言わない。</div>
+  <div class="scene">
+    <div class="sh wbsh">締め<span>約5分</span></div>
+    <div class="ask">「最後に、見ている人に1つだけお願いするとしたら？」<small>答えはLINEの友だち追加1つにする。ほかの案内は足さない</small></div>
+    <div class="facts"><b>事実</b><ul>
+      <li>推薦専用のLINE公式アカウント（ID：@325uugff）</li>
+      <li>説明欄に書くもの（締めでは言わない）：料金、教室の場所</li>
+    </ul></div>
+    <div class="scr">編集で入れる：LINEのQRコードとID</div>
+  </div>
+  <div class="box">稲田さんへ：LINEの名前を変える話（「あおぞら作文教室｜都立推薦の作文・面接」案）と、配信の仕組みは先生の返事待ちです。締めでは名前を言ってもらわず、「LINE」とだけ言ってもらうと、あとで名前が変わっても撮り直さずに済みます。学校名を送ると見本が届く仕組みも、先生の配信の決め方が出るまでは言わないでもらいます。</div>
+</section>
+
+<!-- ===== 出典の表 ===== -->
+<section class="page srcpage">
+  <div class="head"><span>出典の表　1回目</span><span>確かめた日 ①〜⑩は2026-10-21（10/21版の台本で原本と照合済み）、⑪〜⑭は2026-10-27</span></div>
+  <h1>出典の表</h1>
+  <div class="sub">台本の①②…の番号と同じです。ページは冊子のページ番号（カッコ内は、URLのPDFの何枚目か）。</div>
+  <table class="srct"><tr><th>番号</th><th>事実（台本に書いた形）</th><th>資料名</th><th>ページ</th><th>URL</th></tr>
+    <tr><td class="c">①</td><td>推薦の選考の文（自己ＰＲカードを含む）</td><td>令和9年度 入学者選抜実施要綱（本文）</td><td>6（PDF6）第1-7-1(1)</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_01</td></tr>
+    <tr><td class="c">②</td><td>江戸川の配点：推薦枠20%、調査書400・個人面接200・作文200</td><td>令和9年度 実施方法一覧（普通科）</td><td>109（PDF4）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_10</td></tr>
+    <tr><td class="c">③</td><td>江戸川：推薦では生徒会・委員会・部活動の取り組みが望ましい（※の行）</td><td>令和9年度 本校の期待する生徒の姿（全日制）</td><td>8（PDF8）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_28</td></tr>
+    <tr><td class="c">④</td><td>足立新田：自己ＰＲタイムは2分以内、カードは見られない</td><td>令和9年度 実施要綱 別表6 実技検査等の内容</td><td>218（PDF6）No.20</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_20</td></tr>
+    <tr><td class="c">⑤</td><td>足立新田の配点：調査書600・個人面接400・作文200</td><td>令和9年度 実施方法一覧（普通科）</td><td>109（PDF4）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_10</td></tr>
+    <tr><td class="c">⑥</td><td>晴海総合：1人3分、電子機器不可、作品の完成度は評価しない</td><td>令和9年度 実施要綱 別表6 実技検査等の内容</td><td>220（PDF8）No.31</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_20</td></tr>
+    <tr><td class="c">⑦</td><td>晴海総合の配点：調査書720・個人面接480・作文240</td><td>令和9年度 実施方法一覧（総合学科）</td><td>124（PDF10）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_12</td></tr>
+    <tr><td class="c">⑧</td><td>江戸川 令和8年度の推薦：募集64人・応募231人・3.61倍（特別推薦を含む）</td><td>令和8年度 推薦応募状況（普通科）</td><td>2（PDF2）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260121_suisen_futsu</td></tr>
+    <tr><td class="c">⑨</td><td>江戸川 令和8年度の作文：50分・501〜600字、問題文（生成ＡＩ）</td><td>令和8年度 小論文・作文のテーマ等一覧（別添1）</td><td>11（PDF11）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/r8-1-2</td></tr>
+    <tr><td class="c">⑩</td><td>江戸川の期待する生徒の姿（進学指導推進校・1）</td><td>令和9年度 本校の期待する生徒の姿（全日制）</td><td>8（PDF8）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_28</td></tr>
+    <tr><td class="c">⑪</td><td>江北 令和8年度の推薦：募集64人・応募187人・2.92倍</td><td>令和8年度 推薦応募状況（普通科）</td><td>2（PDF2）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260121_suisen_futsu</td></tr>
+    <tr><td class="c">⑫</td><td>江北の配点：推薦枠20%、調査書450・個人面接150・小論文300、特別推薦なし</td><td>令和9年度 実施方法一覧（普通科）</td><td>109（PDF4）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_10</td></tr>
+    <tr><td class="c">⑬</td><td>江北 令和8年度の小論文：50分、150〜200字・300〜400字、問題文（可処分所得・社会保障）</td><td>江北高校 令和8年度 推薦 小論文（学校HP）／令和8年度 小論文・作文のテーマ等一覧（別添1）</td><td>問題用紙1〜5／一覧10（PDF10）</td><td class="u">https://www.metro.ed.jp/kohoku-h/assets/filelink/filelink-pdffile-38042.pdf ／ https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/r8-1-2</td></tr>
+    <tr><td class="c">⑭</td><td>江北の期待する生徒の姿（進学指導推進校・推薦は１〜４全て・難関大学への現役合格）</td><td>令和9年度 本校の期待する生徒の姿（全日制）</td><td>7（PDF7）</td><td class="u">https://www.kyoiku.metro.tokyo.lg.jp/documents/d/kyoiku/20260916_r9_28</td></tr>
+  </table>
+</section>
+
+</body>
+</html>
